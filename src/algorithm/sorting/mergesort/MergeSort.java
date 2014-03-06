@@ -6,10 +6,6 @@ public class MergeSort {
 	public void sort(int[] arr) {
 		workspace = new int[arr.length];
 		sort(arr, 0, arr.length - 1);
-		System.out.println("");
-		for (int i : workspace) {
-			System.out.println(i + "\t");
-		}
 	}
 
 	public void sort(int[] arr, int startIndex, int endIndex) {
@@ -17,8 +13,6 @@ public class MergeSort {
 			return;
 		} else {
 			int midPoint = (startIndex + endIndex) / 2;
-			System.out.println("startIndex :" + startIndex + " midPoint:"
-					+ midPoint + " endIndex:" + endIndex);
 			sort(arr, startIndex, midPoint);
 			sort(arr, midPoint + 1, endIndex);
 			merge(arr, startIndex, midPoint + 1, endIndex);
@@ -27,15 +21,13 @@ public class MergeSort {
 
 	private void merge(int[] arr, int lowerIndex, int higherIndex, int endIndex) {
 		int j = lowerIndex;
+		int startIndex = lowerIndex;
 		int lowerBound = higherIndex;
-		while (true) {
-			if (lowerIndex < lowerBound && arr[lowerIndex] < arr[higherIndex]) {
+		while (lowerIndex < lowerBound && higherIndex <= endIndex) {
+			if (arr[lowerIndex] < arr[higherIndex]) {
 				workspace[j++] = arr[lowerIndex++];
-			} else if (higherIndex <= endIndex
-					&& arr[higherIndex] < arr[lowerIndex]) {
+			} else if (arr[higherIndex] < arr[lowerIndex]) {
 				workspace[j++] = arr[higherIndex++];
-			} else {
-				break;
 			}
 		}
 
@@ -45,6 +37,8 @@ public class MergeSort {
 		while (higherIndex <= endIndex) {
 			workspace[j++] = arr[higherIndex++];
 		}
-
+		for (int i = startIndex; i <= endIndex; i++) {
+			arr[i] = workspace[i];
+		}
 	}
 }
